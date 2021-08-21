@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'vaverka'
+
+
+Dry::CLI.new(CLI::Commands).call

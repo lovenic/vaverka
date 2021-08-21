@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    vaverka (0.0.0)
+      dry-cli (= 0.6)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    concurrent-ruby (1.1.9)
+    dry-cli (0.6.0)
+      concurrent-ruby (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  vaverka!
+
+BUNDLED WITH
+   2.1.4
