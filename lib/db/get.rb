@@ -15,6 +15,7 @@ module DB
       end
 
       if index_offset
+        # INDEX HIT
         puts "Using index... #{index_offset} in #{index_file}"
         storage_file = index_file.gsub(Config::DB::INDEX_FILE_EXTENSION, Config::DB::STORAGE_FILE_EXTENSION)
 
@@ -23,6 +24,7 @@ module DB
           return f.readline.split(',')[1]
         end
       else
+        # LOOKING THROUGHT ALL FILES
         value = nil
 
         Dir

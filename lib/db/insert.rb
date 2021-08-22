@@ -24,6 +24,8 @@ module DB
       end
 
       # flush to disk wiht 20% probability
+      # NOTE: we won't have a index for some values
+      # 'cause we restore it only for absent files
       Index::HashMap.save_to_disk if rand < 0.2
 
       "Success"
