@@ -8,10 +8,25 @@ module Server
       'insert' => DB::Insert
     }.freeze
 
-    def self.start
+    attr_reader :db_name
+
+    def initialize(db_name:)
+      @db_name = db_name
+    end
+
+    def self.start(db_name: Config::DB::DB_NAME)
+      new(db_name: db_name).start
+    end
+
+    def start
       server = TCPServer.new Config::Server::PORT
       puts "Server started on #{Config::Server::PORT} port!"
+
+      ## index load
+      Index::HashMap.instance.offsets = {}
+      Index::HashMap.verify_index_presence
       Index::HashMap.load_from_disk
+      # require "pry"; binding.pry
 
       loop do
         Thread.start(server.accept) do |client|
@@ -23,12 +38,12 @@ module Server
 
           response = ACTION_MAPPING[action].call(**params)
 
-          Server::HttpServer.respond(client, response)
+          respond(client, response)
         end
       end
     end
 
-    def self.respond(client, response)
+    def respond(client, response)
       client.print "HTTP/1.1 200\r\n" # 1
       client.print "Content-Type: text/html\r\n" # 2
       client.print "\r\n" # 3

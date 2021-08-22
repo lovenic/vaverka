@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
 
   # dependencies
   s.add_dependency 'dry-cli', '0.6'
+  s.add_development_dependency 'pry'
 end
